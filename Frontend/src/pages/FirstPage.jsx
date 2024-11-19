@@ -5,6 +5,7 @@ import { styled, alpha } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from "react-router-dom"; 
+import ProductData from "../components/ProductData";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -171,7 +172,7 @@ function FirstPage() {
           {selectedMenu === "Product Data" && (
             <div className="text-center">
               <h2 className="text-lg font-bold">Product Data Content</h2>
-              <p>Here is the content related to Product Data.</p>
+              <ProductData/>
             </div>
           )}
 
