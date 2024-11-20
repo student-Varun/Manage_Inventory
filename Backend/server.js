@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';  
@@ -14,14 +13,7 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = 5000;
 
-const mongoURI = 'mongodb://localhost:27017/Product';  
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error.message);
-  });
+
 
 
 app.use(cors({
@@ -54,14 +46,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const Product = mongoose.model('Product', new mongoose.Schema({
-  productName: { type: String, required: true },
-  quantity: { type: Number, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-  category: { type: String, required: true },
-  image: { type: String, required: true },
-}));
+
 
 
 app.post('/products', upload.single('image'), async (req, res) => {
