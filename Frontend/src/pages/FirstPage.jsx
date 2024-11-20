@@ -1,49 +1,60 @@
 import React, { useState } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputBase,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import { FaBell, FaSignOutAlt, FaMoon, FaSun } from "react-icons/fa";
-import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Drawer, List, ListItem, ListItemText } from "@mui/material";
-import { styled, alpha } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { Link } from "react-router-dom"; 
 import ProductData from "../components/ProductData";
+import MasterData from "../components/MasterData";
+import CustomerData from "../components/CustomerData";
 
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -54,15 +65,13 @@ function FirstPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("Dashboard");
 
-  
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-    document.body.className = isDarkMode ? "light" : "dark";
+    document.body.style.backgroundColor = isDarkMode ? "#4a71b0" : "#333"; // Update body background
   };
 
-
   const toggleSidebar = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setIsSidebarOpen(open);
@@ -70,10 +79,9 @@ function FirstPage() {
 
   const handleMenuSelection = (menu) => {
     setSelectedMenu(menu);
-    setIsSidebarOpen(false); 
+    setIsSidebarOpen(false);
   };
 
- 
   const sidebarList = () => (
     <Box
       sx={{ width: 250 }}
@@ -82,7 +90,7 @@ function FirstPage() {
       onKeyDown={toggleSidebar(false)}
     >
       <List>
-        {['Product Data', 'Master Data', 'Customer Data'].map((text) => (
+        {["Product Data", "Master Data", "Customer Data"].map((text) => (
           <ListItem button key={text} onClick={() => handleMenuSelection(text)}>
             <ListItemText primary={text} />
           </ListItem>
@@ -93,21 +101,19 @@ function FirstPage() {
 
   return (
     <div
-      className={`min-h-screen flex ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      }`}
+      className="min-h-screen flex"
+      style={{
+        backgroundColor: isDarkMode ? "#333" : "#4a71b0",
+        color: isDarkMode ? "white" : "black",
+      }}
     >
-   
       <Drawer anchor="left" open={isSidebarOpen} onClose={toggleSidebar(false)}>
         {sidebarList()}
       </Drawer>
 
-      
       <div className="flex-1 flex flex-col">
-      
-        <AppBar position="static" sx={{ backgroundColor: isDarkMode ? '#333' : '#fff' }}>
+        <AppBar position="static" sx={{ backgroundColor: isDarkMode ? "#333" : "#4a71b0" }}>
           <Toolbar>
-            
             <IconButton
               size="large"
               edge="start"
@@ -122,7 +128,7 @@ function FirstPage() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
               Dashboard
             </Typography>
@@ -133,7 +139,7 @@ function FirstPage() {
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
+                inputProps={{ "aria-label": "search" }}
               />
             </Search>
 
@@ -164,31 +170,14 @@ function FirstPage() {
           </Toolbar>
         </AppBar>
 
-        
         <main className="flex-1 px-6 py-8">
-          <h1 className="text-2xl font-bold text-center mb-8">Welcome to the {selectedMenu}</h1>
+          <h1 className="text-2xl font-bold text-center mb-8">
+            Welcome to the {selectedMenu}
+          </h1>
 
-          
-          {selectedMenu === "Product Data" && (
-            <div className="text-center">
-              <h2 className="text-lg font-bold">Product Data Content</h2>
-              <ProductData/>
-            </div>
-          )}
-
-          {selectedMenu === "Master Data" && (
-            <div className="text-center">
-              <h2 className="text-lg font-bold">Master Data Content</h2>
-              <p>Here is the content related to Master Data.</p>
-            </div>
-          )}
-
-          {selectedMenu === "Customer Data" && (
-            <div className="text-center">
-              <h2 className="text-lg font-bold">Customer Data Content</h2>
-              <p>Here is the content related to Customer Data.</p>
-            </div>
-          )}
+          {selectedMenu === "Product Data" && <ProductData />}
+          {selectedMenu === "Master Data" && <MasterData />}
+          {selectedMenu === "Customer Data" && <CustomerData />}
         </main>
       </div>
     </div>
