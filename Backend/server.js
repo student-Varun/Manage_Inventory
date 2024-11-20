@@ -47,36 +47,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
-
-app.post('/products', upload.single('image'), async (req, res) => {
-  try {
-    const { productName, quantity, description, price, category } = req.body;
-
-    if (!req.file) {
-      return res.status(400).json({ error: 'Image upload failed' });
-    }
-
-    const imagePath = `/uploads/${req.file.filename}`;
-
-    const newProduct = new Product({
-      productName,
-      quantity,
-      description,
-      price,
-      category,
-      image: imagePath,
-    });
-
-    await newProduct.save();
-    res.status(201).json({ message: 'Product added successfully', product: newProduct });
-  } catch (error) {
-    console.error('Error adding product:', error.message);
-    res.status(500).json({ error: 'Failed to add product', details: error.message });
-  }
-});
-
-
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

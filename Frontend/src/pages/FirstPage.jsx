@@ -67,7 +67,7 @@ function FirstPage() {
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-    document.body.style.backgroundColor = isDarkMode ? "#4a71b0" : "#333"; // Update body background
+    document.body.style.backgroundColor = isDarkMode ? "#4a71b0" : "#333"; 
   };
 
   const toggleSidebar = (open) => (event) => {
