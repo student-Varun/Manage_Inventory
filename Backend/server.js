@@ -22,6 +22,10 @@ app.use(cors({
   allowedHeaders: 'Content-Type,Authorization',
 }));
 
+app.get("/", (req,res)=>{
+  return res.status(200).send(`${Math.floor(Date.now()/1000)}`);
+})
+
 
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
