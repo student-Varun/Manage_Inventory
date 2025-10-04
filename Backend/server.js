@@ -51,6 +51,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(5000, "0.0.0.0", () => {
+  console.log("Server is running on port 5000");
 });
